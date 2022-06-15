@@ -66,4 +66,4 @@ COPY --from=elector-builder /usr/bin/${TARGETPLATFORM}/leader-elector /app/serve
 ENV GLOG_vmodule="leaderelection=3"
 
 USER 1001
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["/busybox/sh", "/start.sh"]
