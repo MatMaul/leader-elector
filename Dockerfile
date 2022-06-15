@@ -51,7 +51,7 @@ RUN chmod u+x /start.sh
 
 # Debug image includes busybox which provides a shell otherwise the containers the same.
 # Shell is needed so that shell-expansion can be used in parameters such as --id=$(/app/hostname)
-FROM gcr.io/distroless/base:debug
+FROM busybox
 
 ARG TARGETPLATFORM='linux/amd64'
 
@@ -66,4 +66,4 @@ COPY --from=elector-builder /usr/bin/${TARGETPLATFORM}/leader-elector /app/serve
 ENV GLOG_vmodule="leaderelection=3"
 
 USER 1001
-ENTRYPOINT ["/busybox/sh", "/start.sh"]
+ENTRYPOINT ["/start.sh"]
