@@ -29,6 +29,6 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: matmaul/leader-elector:latest
+        tags: ghcr.io/matmaul/leader-elector:latest
         platforms: linux/amd64,linux/arm64
 
