@@ -44,6 +44,10 @@ RUN cd /go/src/hostname \
     && chmod u+x hostname_* && \
     cp hostname_${ARCH} /usr/bin/linux/${ARCH}/hostname
 
+COPY start.sh /
+
+RUN chmod u+x /start.sh
+
 
 # Debug image includes busybox which provides a shell otherwise the containers the same.
 # Shell is needed so that shell-expansion can be used in parameters such as --id=$(/app/hostname)
@@ -54,11 +58,9 @@ ARG TARGETPLATFORM='linux/amd64'
 MAINTAINER Instana Engineering <support@instana.com>
 
 COPY --from=hostname-builder /usr/bin/${TARGETPLATFORM}/hostname /app/hostname
+COPY --from=hostname-builder /start.sh /start.sh
 COPY --from=elector-builder /usr/bin/${TARGETPLATFORM}/leader-elector /app/server
 
-RUN chmod +x /app/server /app/hostname
-
-COPY start.sh /
 
 # Limit continuous logging of the lease on INFO level
 ENV GLOG_vmodule="leaderelection=3"
