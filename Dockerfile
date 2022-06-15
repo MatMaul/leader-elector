@@ -47,7 +47,7 @@ RUN cd /go/src/hostname \
 
 # Debug image includes busybox which provides a shell otherwise the containers the same.
 # Shell is needed so that shell-expansion can be used in parameters such as --id=$(/app/hostname)
-FROM gcr.io/distroless/base:debug
+FROM alpine:latest
 
 ARG TARGETPLATFORM='linux/amd64'
 
