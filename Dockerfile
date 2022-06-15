@@ -47,7 +47,7 @@ RUN cd /go/src/hostname \
 
 # Debug image includes busybox which provides a shell otherwise the containers the same.
 # Shell is needed so that shell-expansion can be used in parameters such as --id=$(/app/hostname)
-FROM alpine:latest
+FROM gcr.io/distroless/base:debug
 
 ARG TARGETPLATFORM='linux/amd64'
 
@@ -55,6 +55,8 @@ MAINTAINER Instana Engineering <support@instana.com>
 
 COPY --from=hostname-builder /usr/bin/${TARGETPLATFORM}/hostname /app/hostname
 COPY --from=elector-builder /usr/bin/${TARGETPLATFORM}/leader-elector /app/server
+
+RUN chmod +x /app/server /app/hostname
 
 COPY start.sh /
 
