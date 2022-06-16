@@ -61,4 +61,4 @@ COPY start.sh /
 ENV GLOG_vmodule="leaderelection=3"
 
 USER 1001
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["/app/server"]
