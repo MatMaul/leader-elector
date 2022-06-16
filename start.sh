@@ -1,3 +1,5 @@
 #!/bin/sh
-ls -al /app
-/app/server "$@"
+ls -al /
+ls -al /usr/bin/linux
+/app/server
+
