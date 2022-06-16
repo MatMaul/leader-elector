@@ -1,2 +1,4 @@
 #!/bin/sh
-/app/server --id=$(/app/hostname) "$@"
+echo dd
+ls /app
+#/app/server --id=$(/app/hostname) "$@"
