@@ -17,7 +17,7 @@ RUN microdnf install git tar gzip \
 
 FROM --platform=linux/amd64 go-builder AS elector-builder
 
-ARG TARGETPLATFORM='linux/amd64'
+ARG TARGETPLATFORM='linux/arm64'
 
 ADD election /go/src/k8s.io/contrib/election
 
@@ -31,7 +31,7 @@ RUN cd /go/src/k8s.io/contrib/election \
 
 FROM --platform=linux/amd64 go-builder AS hostname-builder
 
-ARG TARGETPLATFORM='linux/amd64'
+ARG TARGETPLATFORM='linux/arm64'
 
 WORKDIR /go/src/hostname
 
@@ -46,9 +46,9 @@ RUN cd /go/src/hostname \
 
 # Debug image includes busybox which provides a shell otherwise the containers the same.
 # Shell is needed so that shell-expansion can be used in parameters such as --id=$(/app/hostname)
-FROM busybox
+FROM gcr.io/distroless/base:debug
 
-ARG TARGETPLATFORM='linux/amd64'
+ARG TARGETPLATFORM='linux/arm64'
 
 MAINTAINER Instana Engineering <support@instana.com>
 
@@ -61,4 +61,4 @@ COPY start.sh /
 ENV GLOG_vmodule="leaderelection=3"
 
 USER 1001
-ENTRYPOINT ["/app/server"]
+ENTRYPOINT ["/start.sh"]

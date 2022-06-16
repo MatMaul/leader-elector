@@ -1,5 +1,2 @@
-#!/bin/sh
-ls -al /
-ls -al /usr/bin/linux
-/app/server
-
+#!/busybox/sh
+/app/server --id=$(/app/hostname) "$@"
